@@ -1,16 +1,47 @@
-.App {
+.Todo__app {
   text-align: center;
+  font-size: 2rem;
+  padding: 2rem 1rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Todo__app h1 {
+  margin-bottom: 2rem;
+}
+
+.Todo__app--header {
+  color: #f7f7f7;
+  width: 50%;
+  margin: 2rem auto;
+  -webkit-box-shadow: 0 3rem 6rem rgb(0 0 0 / 10%);
+  box-shadow: 0 3rem 6rem rgb(0 0 0 / 10%);
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 3px;
+  padding: 2rem;
+  font-size: 1.6rem;
+  -webkit-transform: skewX(-12deg);
+  transform: skewX(-12deg);
+}
+
+.Todo__app--header > * {
+  -webkit-transform: skewX(12deg);
+  transform: skewX(12deg);
+}
+
+/*.Todo__form--button {
+  padding: 1rem 1.5rem;
+}*/
+
+.Todo__form--input-container {
+  width: 50%;
+}
+
+.Todo__form--input {
+  font-size: 2rem;
+}
+
+.Todo__app--body {
+  margin: 0 auto;
+  width: 45%;
 }
 
 .App-link {
