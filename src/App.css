@@ -27,16 +27,8 @@
   transform: skewX(12deg);
 }
 
-/*.Todo__form--button {
-  padding: 1rem 1.5rem;
-}*/
-
 .Todo__form--input-container {
   width: 50%;
-}
-
-.Todo__form--input {
-  font-size: 2rem;
 }
 
 .Todo__app--body {

@@ -1,48 +1,56 @@
 import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import firebase from 'firebase';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import db from './firebase';
 import Todo from './Todo';
 
-const AddTodoButton = withStyles({
-  root: {
-    background: 'linear-gradient(to right, rgba(40, 180, 133, 0.8), rgba(126, 213, 111, 0.8))',
-    borderRadius: '2rem',
-    border: 0,
-    color: 'white',
-    padding: '1rem 2.5rem',
-    boxShadow: '0 0.5rem 0.5rem rgb(0 0 0 / 20%)',
-    marginLeft: '1.5rem',
-    transition: 'all 0.3s linear',
-    '&:disabled': {
-      background: 'var(--color-grey-light)',
-      boxShadow: 'none',
-      color: 'var(--color-gray)',
+const useStyles = makeStyles((theme) => ({
+    addtodoButton: {
+      background: 'linear-gradient(to right, rgba(40, 180, 133, 0.8), rgba(126, 213, 111, 0.8))',
+      borderRadius: '2rem',
+      border: '1px solid #fff',
+      color: '#fff',
+      padding: '1rem 2.5rem',
+      boxShadow: '0 0.5rem 0.5rem rgb(0 0 0 / 20%)',
+      marginLeft: '1.5rem',
+      fontSize: '1.5rem',
+      transition: 'all 0.3s linear',
+        '&:disabled': {
+          background: '#bcbcbc',
+          boxShadow: 'none',
+          color: '#333',
+          border: '1px solid #f45',
+        },
+        '&:hover': { 
+          transform: 'translateY(-2px)',
+          boxShadow: '0 0.5rem 1rem rgb(0 0 0 / 20%)',
+        },
+        '&:active, &:focus': {
+          outline: 'none',
+          transform: 'translateY(-1px)',
+          boxShadow: '0 .5rem 1rem rgba(0 0 0 ,.2)',
+        },
     },
-    '&:hover': { 
-      transform: 'translateY(-2px)',
-      boxShadow: '0 0.5rem 1rem rgb(0 0 0 / 20%)',
+    label: {
+      fontSize: '1.5rem',
     },
-    '&:active, &:focus': {
-      outline: 'none',
-      transform: 'translateY(-1px)',
-      boxShadow: '0 .5rem 1rem rgba(0 0 0 ,.2)',
+    todoInput: {
+      fontSize: '2rem',
+    },
+    inputLabel: {
+      fontSize: '1.3rem',
     },
     
-  },
-  label: {
-    fontSize: '1.5rem',
-  },
-})(Button);
+}));
 
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState('');
 
-  //const classes = useStyles();
+  const classes = useStyles();
 
   // When the app loads, we need to listen to the database and fetch new todos as they get added/removed
   useEffect(() => {
@@ -72,15 +80,21 @@ function App() {
       <div className="Todo__app--header">
         <form className="Todo__form">
           <FormControl className="Todo__form--input-container">
-            <InputLabel>Write a Todo: </InputLabel>
-            <Input value={input} onChange={event => setInput(event.target.value)} className="Todo__form--input" />     
+            <InputLabel classes={{
+              root: classes.inputLabel,
+              focused: classes.inputLabel,
+            }}>Write a Todo: </InputLabel>
+            <Input  value={input} onChange={event => setInput(event.target.value)} className={classes.todoInput} />     
           </FormControl>
 
-          <AddTodoButton 
+          <Button 
           type="submit" 
+          className={classes.addtodoButton}
           onClick={addTodo} 
           disabled={!input} 
-          >Add Todo</AddTodoButton>
+          >
+            Add Todo
+          </Button>
         </form>
       </div>
       

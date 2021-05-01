@@ -1,15 +1,23 @@
-import { Button, Checkbox, List, ListItem, ListItemIcon, ListItemText, Modal } from '@material-ui/core';
+import { Button, Checkbox, IconButton, List, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Modal } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import React, { useState } from 'react';
 import db from './firebase';
 import './Todo.css';
 
+
 const useStyles = makeStyles((theme) => ({
-    root: {
+  todoList: {
         width: '100%',
-        maxWidth: 360,
+        maxWidth: '100%',
         backgroundColor: theme.palette.background.paper,
+        fontSize: '1.7rem',
+        margin: 'auto',
+        boxShadow: theme.shadows[5],
+    },
+    todoListItem: {
+      //boxShadow: theme.shadows[5],
     },
     modal: {
       display: 'flex',
@@ -28,7 +36,7 @@ function Todo(props) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [input, setInput] = useState('');
-    const [checked, setChecked] = React.useState([0]);
+    const [checked, setChecked] = useState([0]);
 
     const handleToggle = (value) => () => {
         const currentIndex = checked.indexOf(value);
@@ -58,6 +66,10 @@ function Todo(props) {
         setOpen(false);
     }
 
+    const handleCheckbox =(value) => {
+        console.log(value);
+    }
+
     return (
         <>
         <Modal
@@ -74,26 +86,41 @@ function Todo(props) {
                 </div>
             </Modal>
     
-    <List className={classes.root}>
-            
-            <ListItem key={props.todo.id} role={undefined} dense button onClick={handleToggle(props.todo.id)}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                checked={checked.indexOf(props.todo.id) !== -1}
-                tabIndex={-1}
-                disableRipple
-              />
-            </ListItemIcon>
-            <ListItemText id={props.todo.id} primary={props.todo.todo} />
-            
-            <button onClick={e => setOpen(true)}>Edit</button>
-            <DeleteForeverIcon onClick={event => db.collection('todos').doc(props.todo.id).delete()} />
-            </ListItem>
-        
-        </List>
+        <List classes={{root: classes.todoList}}>
 
-        </>
+            <ListItem 
+              key={props.todo.id} 
+              role={undefined} 
+              button 
+              onClick={handleToggle(props.todo.id)} 
+              classes={{root: classes.todoListItem}}
+              >
+
+              <ListItemIcon>
+                  <Checkbox
+                    edge="start"
+                    checked={checked.indexOf(props.todo.id) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                  />
+              </ListItemIcon>
+              
+              <ListItemText id={props.todo.id} primary={props.todo.todo} disableTypography/>
+
+              <ListItemSecondaryAction>
+                <IconButton size="large" aria-label="edit" onClick={e => setOpen(true)}>
+                  <EditIcon />
+                </IconButton>
+              
+                <IconButton aria-label="delete" onClick={event => db.collection('todos').doc(props.todo.id).delete()}>
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+
+            </ListItem>
+
+        </List>
+      </>
     )
 }
 
