@@ -1,0 +1,9 @@
+.Todo__app--footer {
+  padding: 1rem;
+  width: 100%;
+}
+
+.Todo__app--footer p {
+  font-size: 1.5rem;
+  text-align: center;
+}

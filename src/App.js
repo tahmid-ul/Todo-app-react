@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import db from './firebase';
+import Footer from './Footer';
 import Todo from './Todo';
 
 const useStyles = makeStyles((theme) => ({
@@ -73,6 +74,7 @@ function App() {
   }
 
   return (
+    <>
     <div className="Todo__app">
       
       <h1>React Todo APP</h1>
@@ -106,6 +108,8 @@ function App() {
         </ul>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
 
